@@ -1,1 +1,123 @@
 @import "tailwindcss";
+
+/* ============================================================
+   Delta Gutter USA — Design System (Tailwind v4 @theme)
+   Palette sampled from the official invoice + logo.
+   Typography echoes the invoice: heavy grotesque display,
+   monospace uppercase labels, humanist body.
+   ============================================================ */
+@theme {
+  /* Brand palette (exact) */
+  --color-navy-950: #04141f; /* deepest bg / footer */
+  --color-navy-900: #082f45; /* primary dark bg */
+  --color-navy-800: #0d3a54; /* elevated panels */
+  --color-ink: #0a2430; /* text on light / logo navy */
+  --color-blue-500: #0a90c8; /* brand accent: CTAs, highlights */
+  --color-blue-400: #2fb1e8; /* hover / glow on dark */
+  --color-blue-600: #0973a0; /* accessible blue on light */
+  --color-ice: #d9eef9; /* pale tint */
+  --color-surface: #f2f6f9; /* light sections */
+  --color-steel: #3f5a6d; /* secondary text on light */
+
+  /* Typography */
+  --font-display: "Archivo Variable", system-ui, sans-serif;
+  --font-body: "Manrope Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Easing */
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Base ---------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-navy-900);
+    color: var(--color-ice);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+  }
+
+  /* Selection */
+  ::selection {
+    background-color: var(--color-blue-500);
+    color: var(--color-navy-950);
+  }
+
+  /* Focus-visible rings (keyboard nav) */
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-blue-400);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Subtle scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-navy-800) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--color-navy-800);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-blue-600);
+    background-clip: padding-box;
+  }
+}
+
+/* ---------- Utilities ---------- */
+@layer utilities {
+  .font-mono-label {
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 0.72rem;
+    font-weight: 500;
+  }
+
+  /* Ambient blue glow used behind 3D + key panels */
+  .glow-blue {
+    box-shadow: 0 0 80px -20px rgba(47, 177, 232, 0.45);
+  }
+
+  .bg-grid {
+    background-image: linear-gradient(
+        to right,
+        rgba(217, 238, 249, 0.04) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(217, 238, 249, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
