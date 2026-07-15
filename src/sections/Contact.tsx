@@ -38,6 +38,17 @@ const initial: FormState = {
 
 const steps = ["Service", "Your home", "Your details"];
 
+// Los links sms: solo funcionan en dispositivos con app de mensajes (movil).
+// En escritorio no hacen nada, asi que ahi copiamos el mensaje y mostramos el numero.
+function isMobileDevice(): boolean {
+  if (typeof window === "undefined") return false;
+  const coarsePointer = window.matchMedia?.("(pointer: coarse)")?.matches ?? false;
+  const mobileUA = /Android|iPhone|iPad|iPod|Windows Phone|Mobile/i.test(
+    navigator.userAgent
+  );
+  return coarsePointer || mobileUA;
+}
+
 function buildSummary(f: FormState) {
   const lines = [
     "Hi Delta Gutter USA, I'd like a free estimate.",
@@ -86,9 +97,12 @@ export function Contact() {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<FormState>(initial);
   const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
 
-  const set = <K extends keyof FormState>(key: K, value: FormState[K]) =>
+  const set = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((f) => ({ ...f, [key]: value }));
+    setCopied(false); // el mensaje copiado queda obsoleto al editar
+  };
 
   const summary = useMemo(() => buildSummary(form), [form]);
 
@@ -114,7 +128,13 @@ export function Contact() {
 
   const openSms = () => {
     if (!validate()) return;
-    window.location.href = business.links.sms(summary);
+    if (isMobileDevice()) {
+      window.location.href = business.links.sms(summary);
+      return;
+    }
+    // Escritorio: sms: no abre nada -> copiamos el mensaje y mostramos el numero.
+    navigator.clipboard?.writeText(summary).catch(() => {});
+    setCopied(true);
   };
   const openEmail = () => {
     if (!validate()) return;
@@ -325,6 +345,23 @@ export function Contact() {
                         className="rounded-lg border border-red-400/30 bg-red-500/10 px-4 py-2.5 text-sm text-red-200"
                       >
                         {error}
+                      </p>
+                    )}
+
+                    {copied && (
+                      <p
+                        role="status"
+                        aria-live="polite"
+                        className="flex flex-wrap items-center gap-x-1.5 rounded-lg border border-blue-400/30 bg-blue-500/10 px-4 py-2.5 text-sm text-ice/90"
+                      >
+                        <Check className="size-4 shrink-0 text-blue-400" aria-hidden />
+                        Message copied — text us at
+                        <a
+                          href={business.phone.tel}
+                          className="font-semibold text-blue-300 underline underline-offset-2 hover:text-blue-200"
+                        >
+                          {business.phone.display}
+                        </a>
                       </p>
                     )}
 
