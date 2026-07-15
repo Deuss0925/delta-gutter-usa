@@ -8,7 +8,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Check,
-  MessageCircle,
+  MessageSquare,
 } from "lucide-react";
 import { Section, SectionHeading } from "../components/Section";
 import { Reveal } from "../components/Reveal";
@@ -112,9 +112,9 @@ export function Contact() {
     return true;
   };
 
-  const openWhatsApp = () => {
+  const openSms = () => {
     if (!validate()) return;
-    window.open(business.links.whatsapp(summary), "_blank", "noopener");
+    window.location.href = business.links.sms(summary);
   };
   const openEmail = () => {
     if (!validate()) return;
@@ -331,11 +331,11 @@ export function Contact() {
                     <div className="flex flex-col gap-2.5 pt-1 sm:flex-row">
                       <button
                         type="button"
-                        onClick={openWhatsApp}
+                        onClick={openSms}
                         className="inline-flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold text-navy-950 transition-colors hover:bg-blue-400"
                       >
-                        <MessageCircle className="size-4" aria-hidden />
-                        Send via WhatsApp
+                        <MessageSquare className="size-4" aria-hidden />
+                        Send via Text
                       </button>
                       <button
                         type="button"

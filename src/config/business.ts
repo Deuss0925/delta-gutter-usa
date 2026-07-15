@@ -1,7 +1,7 @@
 // Delta Gutter USA — single source of truth for all business data.
 // If a real detail changes, edit it here only. Do NOT hardcode contact info elsewhere.
 
-const PHONE_DIGITS = "19843327225"; // E.164 without '+', used for tel/wa links
+const PHONE_DIGITS = "17864996534"; // E.164 without '+', used for tel/wa links
 
 export const business = {
   brand: "Delta Gutter USA",
@@ -9,7 +9,7 @@ export const business = {
   tagline: "Seamless gutters, protecting every drop.",
 
   phone: {
-    display: "(984) 332-7225",
+    display: "(786) 499-6534",
     tel: `tel:+${PHONE_DIGITS}`,
     digits: PHONE_DIGITS,
   },
@@ -43,8 +43,9 @@ export const business = {
 
   // Prefilled outreach links (message bodies are built dynamically by the quote builder)
   links: {
-    whatsapp: (message: string) =>
-      `https://wa.me/${PHONE_DIGITS}?text=${encodeURIComponent(message)}`,
+    // SMS directo a la línea de leads. "?&body=" funciona tanto en iOS como en Android.
+    sms: (message: string) =>
+      `sms:+${PHONE_DIGITS}?&body=${encodeURIComponent(message)}`,
     mailto: (subject: string, body: string) =>
       `mailto:deltagutterusa@gmail.com?subject=${encodeURIComponent(
         subject
