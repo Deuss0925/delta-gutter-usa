@@ -113,7 +113,6 @@ export default function ConfiguratorScene({
         speed={1.2}
         polar={[-0.6, 0.6]}
         azimuth={[-Math.PI, Math.PI]}
-        config={{ mass: 1, tension: 170, friction: 26 }}
       >
         <GutterSection profile={profile} color={color} />
       </PresentationControls>
