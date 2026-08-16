@@ -105,12 +105,15 @@ export default function ConfiguratorScene({
         color="#2fb1e8"
       />
 
+      {/* No `snap` — the section keeps whatever angle the visitor leaves it at.
+          Full azimuth so the profile can be inspected from every side. */}
       <PresentationControls
         global
         cursor
-        snap
-        polar={[-0.35, 0.35]}
-        azimuth={[-0.9, 0.9]}
+        speed={1.2}
+        polar={[-0.6, 0.6]}
+        azimuth={[-Math.PI, Math.PI]}
+        config={{ mass: 1, tension: 170, friction: 26 }}
       >
         <GutterSection profile={profile} color={color} />
       </PresentationControls>
