@@ -16,6 +16,11 @@ import { Reveal } from "../components/Reveal";
 import { business } from "../config/business";
 import { services } from "../config/content";
 import { useReducedMotion } from "../lib/useReducedMotion";
+import {
+  mailtoFallback,
+  submitEstimate,
+  type EstimateFields,
+} from "../lib/submitEstimate";
 
 type FormState = {
   service: string;
@@ -64,13 +69,6 @@ function buildSummary(f: FormState) {
     f.notes ? `• Notes: ${f.notes}` : "",
   ].filter(Boolean);
   return lines.join("\n");
-}
-
-/** Netlify expects url-encoded pairs, same shape a native form POST would send. */
-function encodeForNetlify(data: Record<string, string>) {
-  return Object.entries(data)
-    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
-    .join("&");
 }
 
 type SubmitStatus = "idle" | "sending" | "sent" | "failed";
@@ -163,29 +161,23 @@ export function Contact() {
   const submit = async () => {
     if (!validate()) return;
     setStatus("sending");
-    try {
-      const response = await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encodeForNetlify({
-          "form-name": "estimate",
-          name: form.name,
-          phone: form.phone,
-          email: form.email,
-          service: form.service,
-          stories: String(form.stories),
-          linearFt: form.linearFt,
-          notes: form.notes,
-        }),
-      });
-      if (!response.ok) throw new Error(`Netlify responded ${response.status}`);
+
+    const fields: EstimateFields = {
+      name: form.name,
+      phone: form.phone,
+      email: form.email,
+      service: form.service,
+      stories: String(form.stories),
+      linearFt: form.linearFt,
+      notes: form.notes,
+      source: "quote-builder",
+    };
+
+    if (await submitEstimate(fields)) {
       setStatus("sent");
-    } catch {
+    } else {
       setStatus("failed");
-      window.location.href = business.links.mailto(
-        `Free estimate request — ${form.name}`,
-        summary
-      );
+      mailtoFallback(fields);
     }
   };
 
