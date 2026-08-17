@@ -80,6 +80,25 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!--
+      Netlify only detects forms in the static HTML it receives at build time,
+      and this is a client-rendered app, so the quote builder is declared here.
+      The React form in src/sections/Contact.tsx posts to it by name.
+      Do not remove: without this, estimate requests are silently dropped.
+    -->
+    <form name="estimate" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="estimate" />
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="tel" name="phone" />
+      <input type="email" name="email" />
+      <input type="text" name="service" />
+      <input type="text" name="stories" />
+      <input type="text" name="linearFt" />
+      <textarea name="notes"></textarea>
+    </form>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
