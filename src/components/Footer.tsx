@@ -72,7 +72,33 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-ice/10 pt-6 text-xs text-ice/45 sm:flex-row">
+        {/* Service areas spelled out — the city names were only in the JSON-LD,
+            invisible to visitors and to anyone searching for their own town. */}
+        <div className="mt-12 border-t border-ice/10 pt-8">
+          <p className="font-mono-label mb-4 text-ice/50">Areas we serve</p>
+          <ul className="flex flex-wrap gap-2.5">
+            {business.location.areasServed.map((city) => (
+              <li
+                key={city}
+                className="rounded-full border border-ice/12 px-3.5 py-1.5 text-sm text-ice/70"
+              >
+                {city}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-4 text-sm text-ice/50">
+            Not sure if we reach you?{" "}
+            <a
+              href={business.phone.tel}
+              className="font-semibold text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              Give us a call
+            </a>{" "}
+            — we cover most of the Triangle.
+          </p>
+        </div>
+
+        <div className="mt-10 flex flex-col items-center justify-between gap-3 border-t border-ice/10 pt-6 text-xs text-ice/45 sm:flex-row">
           <p>
             © {year} {business.legalName}. All rights reserved.
           </p>

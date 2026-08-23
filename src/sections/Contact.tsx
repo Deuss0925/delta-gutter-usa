@@ -429,18 +429,19 @@ export function Contact() {
 
                     {status === "failed" && (
                       <p
-                        role="alert"
-                        className="rounded-lg border border-amber-400/30 bg-amber-500/10 px-4 py-2.5 text-sm text-amber-100"
+                        role="status"
+                        aria-live="polite"
+                        className="flex flex-wrap items-center gap-x-1.5 rounded-lg border border-blue-400/30 bg-blue-500/10 px-4 py-2.5 text-sm text-ice/90"
                       >
-                        We couldn't send that automatically — we've opened your
-                        email app with the details, or call us at{" "}
+                        <Mail className="size-4 shrink-0 text-blue-400" aria-hidden />
+                        We've opened your email with the details — just hit send.
+                        Or call us at
                         <a
                           href={business.phone.tel}
-                          className="font-semibold underline underline-offset-2"
+                          className="font-semibold text-blue-300 underline underline-offset-2 hover:text-blue-200"
                         >
                           {business.phone.display}
                         </a>
-                        .
                       </p>
                     )}
 

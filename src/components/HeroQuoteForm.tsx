@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, Send } from "lucide-react";
+import { Check, Mail, Send } from "lucide-react";
 import { business } from "../config/business";
 import {
   mailtoFallback,
@@ -31,7 +31,9 @@ export function HeroQuoteForm() {
   const [email, setEmail] = useState("");
   const [service, setService] = useState<string>(quickServices[0]);
   const [error, setError] = useState<string | null>(null);
-  const [status, setStatus] = useState<"idle" | "sending" | "sent">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "sending" | "sent" | "handoff"
+  >("idle");
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -58,10 +60,38 @@ export function HeroQuoteForm() {
     if (ok) {
       setStatus("sent");
     } else {
-      setStatus("idle");
+      setStatus("handoff");
       mailtoFallback(fields);
     }
   };
+
+  if (status === "handoff") {
+    return (
+      <div
+        role="status"
+        aria-live="polite"
+        className="rounded-2xl border border-blue-400/25 bg-navy-900/70 p-7 text-center backdrop-blur-sm"
+      >
+        <span className="inline-flex size-12 items-center justify-center rounded-full bg-blue-500/15 text-blue-400 ring-1 ring-blue-400/25">
+          <Mail className="size-6" aria-hidden />
+        </span>
+        <p className="mt-4 text-lg font-semibold text-ice">
+          One last step, {name.trim().split(" ")[0]}
+        </p>
+        <p className="mt-2 text-sm text-ice/70">
+          We've opened your email with the details filled in — just hit send.
+          Or call us at{" "}
+          <a
+            href={business.phone.tel}
+            className="font-semibold text-blue-300 underline underline-offset-2 hover:text-blue-200"
+          >
+            {business.phone.display}
+          </a>
+          .
+        </p>
+      </div>
+    );
+  }
 
   if (status === "sent") {
     return (
