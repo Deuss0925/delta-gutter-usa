@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { Phone, ArrowRight } from "lucide-react";
 import { LazyScene } from "../components/LazyScene";
 import { ButtonLink } from "../components/Button";
+import { HeroQuoteForm } from "../components/HeroQuoteForm";
 import { business } from "../config/business";
 import { useSceneBudget } from "../lib/useSceneBudget";
 import { useReducedMotion } from "../lib/useReducedMotion";
@@ -56,7 +57,7 @@ export function Hero() {
         className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-navy-950 to-transparent"
       />
 
-      <div className="mx-auto w-full max-w-7xl px-5 py-28 sm:px-8">
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-12 px-5 py-28 sm:px-8 lg:grid-cols-[1.05fr_minmax(0,26rem)]">
         <motion.div
           className="max-w-2xl"
           initial={reduced ? false : { opacity: 0, y: 28 }}
@@ -97,6 +98,16 @@ export function Hero() {
               Call {business.phone.display}
             </ButtonLink>
           </div>
+        </motion.div>
+
+        {/* Above-the-fold capture — most visitors never scroll to the full
+            quote builder, so the short version lives here too. */}
+        <motion.div
+          initial={reduced ? false : { opacity: 0, y: 28 }}
+          animate={reduced ? undefined : { opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <HeroQuoteForm />
         </motion.div>
       </div>
 

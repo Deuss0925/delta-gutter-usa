@@ -9,12 +9,18 @@ import {
   ArrowRight,
   Check,
   MessageSquare,
+  Send,
 } from "lucide-react";
 import { Section, SectionHeading } from "../components/Section";
 import { Reveal } from "../components/Reveal";
 import { business } from "../config/business";
 import { services } from "../config/content";
 import { useReducedMotion } from "../lib/useReducedMotion";
+import {
+  mailtoFallback,
+  submitEstimate,
+  type EstimateFields,
+} from "../lib/submitEstimate";
 
 type FormState = {
   service: string;
@@ -65,6 +71,8 @@ function buildSummary(f: FormState) {
   return lines.join("\n");
 }
 
+type SubmitStatus = "idle" | "sending" | "sent" | "failed";
+
 const directCards = [
   {
     icon: Phone,
@@ -98,6 +106,7 @@ export function Contact() {
   const [form, setForm] = useState<FormState>(initial);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
 
   const set = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((f) => ({ ...f, [key]: value }));
@@ -144,6 +153,34 @@ export function Contact() {
     );
   };
 
+  /**
+   * Primary path: POST straight to Netlify so the request is captured whether
+   * or not the visitor ever opens their mail app. If that call fails we fall
+   * back to the mailto handoff rather than losing the lead.
+   */
+  const submit = async () => {
+    if (!validate()) return;
+    setStatus("sending");
+
+    const fields: EstimateFields = {
+      name: form.name,
+      phone: form.phone,
+      email: form.email,
+      service: form.service,
+      stories: String(form.stories),
+      linearFt: form.linearFt,
+      notes: form.notes,
+      source: "quote-builder",
+    };
+
+    if (await submitEstimate(fields)) {
+      setStatus("sent");
+    } else {
+      setStatus("failed");
+      mailtoFallback(fields);
+    }
+  };
+
   const canNext = step === 0 ? !!form.service : true;
 
   return (
@@ -173,6 +210,31 @@ export function Contact() {
             Step {step + 1} of {steps.length}: {steps[step]}
           </p>
 
+          {status === "sent" ? (
+            <div
+              role="status"
+              aria-live="polite"
+              className="rounded-3xl border border-blue-400/25 bg-navy-800/40 p-8 text-center sm:p-10"
+            >
+              <span className="inline-flex size-14 items-center justify-center rounded-full bg-blue-500/15 text-blue-400 ring-1 ring-blue-400/25">
+                <Check className="size-7" aria-hidden />
+              </span>
+              <h3 className="mt-5 text-xl font-semibold text-ice">
+                Got it, {form.name.split(" ")[0]} — your request is in.
+              </h3>
+              <p className="mt-3 text-sm text-ice/70">
+                We'll be in touch to schedule your free on-site estimate. Need
+                us sooner? Call or text{" "}
+                <a
+                  href={business.phone.tel}
+                  className="font-semibold text-blue-300 underline underline-offset-2 hover:text-blue-200"
+                >
+                  {business.phone.display}
+                </a>
+                .
+              </p>
+            </div>
+          ) : (
           <div className="rounded-3xl border border-ice/10 bg-navy-800/40 p-6 sm:p-8">
             <AnimatePresence mode="wait">
               <motion.div
@@ -365,11 +427,47 @@ export function Contact() {
                       </p>
                     )}
 
-                    <div className="flex flex-col gap-2.5 pt-1 sm:flex-row">
+                    {status === "failed" && (
+                      <p
+                        role="status"
+                        aria-live="polite"
+                        className="flex flex-wrap items-center gap-x-1.5 rounded-lg border border-blue-400/30 bg-blue-500/10 px-4 py-2.5 text-sm text-ice/90"
+                      >
+                        <Mail className="size-4 shrink-0 text-blue-400" aria-hidden />
+                        We've opened your email with the details — just hit send.
+                        Or call us at
+                        <a
+                          href={business.phone.tel}
+                          className="font-semibold text-blue-300 underline underline-offset-2 hover:text-blue-200"
+                        >
+                          {business.phone.display}
+                        </a>
+                      </p>
+                    )}
+
+                    <div className="pt-1">
+                      <button
+                        type="button"
+                        onClick={submit}
+                        disabled={status === "sending"}
+                        className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-blue-500 px-6 py-3.5 text-sm font-semibold text-navy-950 transition-colors hover:bg-blue-400 disabled:cursor-not-allowed disabled:opacity-60"
+                      >
+                        <Send className="size-4" aria-hidden />
+                        {status === "sending"
+                          ? "Sending…"
+                          : "Request my free estimate"}
+                      </button>
+                      <p className="mt-3 text-center text-xs text-ice/45">
+                        No obligation. We'll reach out to schedule your on-site
+                        visit.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col gap-2.5 border-t border-ice/10 pt-4 sm:flex-row">
                       <button
                         type="button"
                         onClick={openSms}
-                        className="inline-flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-full bg-blue-500 px-6 py-3 text-sm font-semibold text-navy-950 transition-colors hover:bg-blue-400"
+                        className="inline-flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-full border border-ice/20 bg-white/5 px-6 py-3 text-sm font-semibold text-ice transition-colors hover:border-blue-400/60 hover:bg-white/10"
                       >
                         <MessageSquare className="size-4" aria-hidden />
                         Send via Text
@@ -412,6 +510,7 @@ export function Contact() {
               )}
             </div>
           </div>
+          )}
         </div>
 
         {/* Direct contact cards */}
