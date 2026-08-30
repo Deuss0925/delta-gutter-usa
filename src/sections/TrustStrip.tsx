@@ -2,19 +2,20 @@ import {
   BadgeCheck,
   ClipboardCheck,
   Languages,
-  Ruler,
   ShieldCheck,
+  type LucideIcon,
 } from "lucide-react";
 import { Reveal } from "../components/Reveal";
+import { FacebookReviewsSeal, GoogleReviewsSeal } from "../components/Seals";
 
 function WarrantyBadge({ kind, accent = false }: { kind: string; accent?: boolean }) {
   return (
-    <div className="relative flex size-32 items-center justify-center rounded-full border-[3px] border-navy-950 bg-white p-2 shadow-[0_10px_24px_rgba(4,20,31,0.12)]">
+    <div className="relative flex size-28 shrink-0 items-center justify-center rounded-full border-[3px] border-navy-950 bg-white p-2 shadow-[0_10px_24px_rgba(4,20,31,0.12)]">
       <div className="flex size-full flex-col items-center justify-center rounded-full border border-dashed border-navy-950/45 text-center">
         <span className="font-mono text-[8px] font-bold uppercase tracking-[0.18em] text-steel">
           Written warranty
         </span>
-        <strong className={`mt-0.5 font-display text-4xl font-black leading-none ${accent ? "text-blue-600" : "text-navy-950"}`}>
+        <strong className={`mt-0.5 font-display text-3xl font-black leading-none ${accent ? "text-blue-600" : "text-navy-950"}`}>
           10
         </strong>
         <span className="font-display text-sm font-black uppercase tracking-wide text-navy-950">
@@ -33,10 +34,10 @@ function WarrantyBadge({ kind, accent = false }: { kind: string; accent?: boolea
 function ShieldBadge() {
   return (
     <div
-      className="flex h-32 w-36 flex-col items-center justify-center bg-navy-950 px-5 pb-5 pt-3 text-center text-white shadow-[0_10px_24px_rgba(4,20,31,0.18)]"
+      className="flex h-28 w-32 shrink-0 flex-col items-center justify-center bg-navy-950 px-4 pb-4 pt-3 text-center text-white shadow-[0_10px_24px_rgba(4,20,31,0.18)]"
       style={{ clipPath: "polygon(50% 0, 93% 16%, 88% 70%, 50% 100%, 12% 70%, 7% 16%)" }}
     >
-      <ShieldCheck className="size-10 text-blue-300" strokeWidth={2.2} aria-hidden />
+      <ShieldCheck className="size-8 text-blue-300" strokeWidth={2.2} aria-hidden />
       <strong className="mt-1 font-display text-sm font-black uppercase leading-tight tracking-wide">
         Licensed
       </strong>
@@ -54,15 +55,15 @@ function RoundBadge({
   subtitle,
   filled = false,
 }: {
-  Icon: typeof Ruler;
+  Icon: LucideIcon;
   kicker: string;
   title: string;
   subtitle: string;
   filled?: boolean;
 }) {
   return (
-    <div className={`flex size-32 flex-col items-center justify-center rounded-full border-[3px] p-3 text-center shadow-[0_10px_24px_rgba(4,20,31,0.12)] ${filled ? "border-blue-600 bg-blue-600 text-white" : "border-navy-950 bg-white text-navy-950"}`}>
-      <Icon className={`size-8 ${filled ? "text-white" : "text-blue-600"}`} strokeWidth={2.1} aria-hidden />
+    <div className={`flex size-28 shrink-0 flex-col items-center justify-center rounded-full border-[3px] p-3 text-center shadow-[0_10px_24px_rgba(4,20,31,0.12)] ${filled ? "border-blue-600 bg-blue-600 text-white" : "border-navy-950 bg-white text-navy-950"}`}>
+      <Icon className={`size-7 ${filled ? "text-white" : "text-blue-600"}`} strokeWidth={2.1} aria-hidden />
       <span className={`mt-1 font-mono text-[7px] font-bold uppercase tracking-[0.17em] ${filled ? "text-white/75" : "text-steel"}`}>
         {kicker}
       </span>
@@ -78,8 +79,8 @@ function RoundBadge({
 
 const badges = [
   {
-    label: "Seamless gutter runs made on site",
-    node: <RoundBadge Icon={Ruler} kicker="Machine formed" title="On Site" subtitle="Seamless runs" />,
+    label: "Five-star rated on Google Reviews",
+    node: <GoogleReviewsSeal className="h-24 w-32" />,
   },
   { label: "10-year labor warranty", node: <WarrantyBadge kind="Labor" accent /> },
   { label: "Licensed and fully insured", node: <ShieldBadge /> },
@@ -91,6 +92,10 @@ const badges = [
   {
     label: "Service in English and Spanish",
     node: <RoundBadge Icon={Languages} kicker="We speak" title="EN / ES" subtitle="English · Español" />,
+  },
+  {
+    label: "Five-star rated on Facebook Reviews",
+    node: <FacebookReviewsSeal className="h-24 w-32" />,
   },
 ];
 
@@ -111,7 +116,7 @@ export function TrustStrip() {
           <span className="h-px w-14 bg-blue-500/40" aria-hidden />
         </div>
 
-        <div className="grid grid-cols-2 items-start gap-x-4 gap-y-9 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="grid grid-cols-2 items-center gap-x-3 gap-y-9 sm:grid-cols-4 min-[900px]:grid-cols-7">
           {badges.map(({ label, node }, index) => (
             <Reveal key={label} delay={index * 0.05} className="flex flex-col items-center">
               {node}
@@ -122,7 +127,7 @@ export function TrustStrip() {
 
         <div className="mx-auto mt-9 flex max-w-xl items-center justify-center gap-2 rounded-full border border-slate-200 bg-surface px-4 py-2 text-center text-xs font-semibold text-steel">
           <BadgeCheck className="size-4 shrink-0 text-blue-600" aria-hidden />
-          Credentials and warranty details available with your written estimate.
+          Reviews, credentials and warranty details available upon request.
         </div>
       </div>
     </section>
