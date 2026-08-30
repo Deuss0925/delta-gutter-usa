@@ -28,7 +28,7 @@ export function Hero() {
         className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-navy-950 to-transparent"
       />
 
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-9 px-5 pb-16 pt-28 sm:px-8 sm:pb-20 sm:pt-32 xl:grid-cols-[1.15fr_minmax(22rem,27rem)] xl:gap-16 xl:pb-24 xl:pt-36">
+      <div className="mx-auto grid w-full max-w-[90rem] items-center gap-9 px-5 pb-16 pt-28 sm:px-8 sm:pb-20 sm:pt-32 xl:grid-cols-[1.25fr_minmax(22rem,27rem)] xl:gap-20 xl:pb-24 xl:pt-36">
         <motion.div
           className="max-w-2xl"
           initial={reduced ? false : { opacity: 0, y: 28 }}

@@ -46,7 +46,7 @@ export function Nav() {
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-5 sm:px-8"
+        className="mx-auto flex h-20 w-full max-w-[90rem] items-center justify-between px-5 sm:px-8"
       >
         <a href="#home" className="flex items-center" aria-label={`${business.brand} home`}>
           <Logo size={38} />

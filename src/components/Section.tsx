@@ -23,7 +23,7 @@ export function Section({
       id={id}
       className={`scroll-mt-20 py-16 sm:py-24 lg:py-28 ${toneClass} ${className}`}
     >
-      <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">{children}</div>
+      <div className="mx-auto w-full max-w-[90rem] px-5 sm:px-8">{children}</div>
     </section>
   );
 }

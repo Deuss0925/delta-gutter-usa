@@ -22,7 +22,7 @@ export function WhyDelta() {
       />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(4,20,31,0.18)_0%,rgba(4,20,31,0.58)_48%,rgba(4,20,31,0.96)_100%)]" aria-hidden />
 
-      <div className="mx-auto flex min-h-[30rem] w-full max-w-7xl items-center justify-end px-5 sm:px-8">
+      <div className="mx-auto flex min-h-[30rem] w-full max-w-[90rem] items-center justify-end px-5 sm:px-8">
         <Reveal className="w-full max-w-xl rounded-3xl border border-white/15 bg-navy-950/82 p-7 shadow-2xl backdrop-blur-md sm:p-10">
           <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">
             Why Delta Gutter USA

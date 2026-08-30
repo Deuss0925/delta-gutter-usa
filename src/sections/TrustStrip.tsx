@@ -107,7 +107,7 @@ export function TrustStrip() {
       className="relative overflow-hidden border-y-4 border-blue-500 bg-white text-ink"
     >
       <div className="absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_50%_0%,rgba(10,144,200,0.10),transparent_65%)]" aria-hidden />
-      <div className="relative mx-auto w-full max-w-7xl py-10 sm:py-12 min-[900px]:px-8">
+      <div className="relative mx-auto w-full max-w-[90rem] py-10 sm:py-12 min-[900px]:px-8">
         <div className="mb-8 flex items-center justify-center gap-4 px-5 sm:px-8 min-[900px]:px-0">
           <span className="h-px w-14 bg-blue-500/40" aria-hidden />
           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-blue-600">
