@@ -124,11 +124,11 @@ export function HeroQuoteForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-white/70 bg-white p-6 text-ink shadow-2xl shadow-navy-950/35 sm:p-7"
+      className="rounded-2xl border border-white/70 bg-white p-5 text-ink shadow-2xl shadow-navy-950/35 sm:p-7"
       aria-labelledby="hero-form-title"
     >
       <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-600">Start here</p>
-      <h2 id="hero-form-title" className="mt-2 text-2xl font-bold text-ink">
+      <h2 id="hero-form-title" className="mt-2 text-xl font-bold text-ink sm:text-2xl">
         Get a free on-site estimate
       </h2>
       <p className="mt-1 text-xs text-steel">

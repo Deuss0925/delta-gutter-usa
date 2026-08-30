@@ -58,7 +58,7 @@ export function Services() {
               <motion.article
                 whileHover={reduced ? undefined : { y: -7 }}
                 transition={{ type: "spring", stiffness: 300, damping: 22 }}
-                className="group relative min-h-[25rem] overflow-hidden rounded-2xl bg-navy-950 shadow-[0_18px_45px_rgba(4,20,31,0.16)]"
+                className="group relative min-h-[22rem] overflow-hidden rounded-2xl bg-navy-950 shadow-[0_18px_45px_rgba(4,20,31,0.16)] sm:min-h-[25rem]"
               >
                 <img
                   src={photo.src}

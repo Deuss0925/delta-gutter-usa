@@ -107,8 +107,8 @@ export function TrustStrip() {
       className="relative overflow-hidden border-y-4 border-blue-500 bg-white text-ink"
     >
       <div className="absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_50%_0%,rgba(10,144,200,0.10),transparent_65%)]" aria-hidden />
-      <div className="relative mx-auto w-full max-w-7xl px-5 py-10 sm:px-8 sm:py-12">
-        <div className="mb-8 flex items-center justify-center gap-4">
+      <div className="relative mx-auto w-full max-w-7xl py-10 sm:py-12 min-[900px]:px-8">
+        <div className="mb-8 flex items-center justify-center gap-4 px-5 sm:px-8 min-[900px]:px-0">
           <span className="h-px w-14 bg-blue-500/40" aria-hidden />
           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.25em] text-blue-600">
             The Delta standard
@@ -116,16 +116,16 @@ export function TrustStrip() {
           <span className="h-px w-14 bg-blue-500/40" aria-hidden />
         </div>
 
-        <div className="grid grid-cols-2 items-center gap-x-3 gap-y-9 sm:grid-cols-4 min-[900px]:grid-cols-7">
+        <div className="scrollbar-none flex snap-x snap-mandatory items-center gap-5 overflow-x-auto px-5 pb-4 sm:px-8 min-[900px]:grid min-[900px]:grid-cols-7 min-[900px]:gap-3 min-[900px]:overflow-visible min-[900px]:px-0 min-[900px]:pb-0">
           {badges.map(({ label, node }, index) => (
-            <Reveal key={label} delay={index * 0.05} className="flex flex-col items-center">
+            <Reveal key={label} delay={index * 0.05} className="flex min-w-[8.5rem] snap-center flex-col items-center min-[900px]:min-w-0">
               {node}
               <span className="sr-only">{label}</span>
             </Reveal>
           ))}
         </div>
 
-        <div className="mx-auto mt-9 flex max-w-xl items-center justify-center gap-2 rounded-full border border-slate-200 bg-surface px-4 py-2 text-center text-xs font-semibold text-steel">
+        <div className="mx-5 mt-7 flex max-w-xl items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-surface px-4 py-2.5 text-center text-[11px] font-semibold leading-relaxed text-steel sm:mx-8 min-[900px]:mx-auto min-[900px]:mt-9 min-[900px]:rounded-full min-[900px]:text-xs">
           <BadgeCheck className="size-4 shrink-0 text-blue-600" aria-hidden />
           Reviews, credentials and warranty details available upon request.
         </div>

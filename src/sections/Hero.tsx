@@ -12,7 +12,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative isolate flex min-h-[100svh] items-center overflow-hidden bg-navy-950"
+      className="relative isolate flex items-center overflow-hidden bg-navy-950 lg:min-h-[100svh]"
     >
       <img
         src={heroPhoto}
@@ -28,7 +28,7 @@ export function Hero() {
         className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-navy-950 to-transparent"
       />
 
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-5 pb-20 pt-32 sm:px-8 lg:grid-cols-[1.15fr_minmax(22rem,27rem)] lg:gap-16 lg:pb-24 lg:pt-36">
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-9 px-5 pb-16 pt-28 sm:px-8 sm:pb-20 sm:pt-32 xl:grid-cols-[1.15fr_minmax(22rem,27rem)] xl:gap-16 xl:pb-24 xl:pt-36">
         <motion.div
           className="max-w-2xl"
           initial={reduced ? false : { opacity: 0, y: 28 }}
@@ -39,17 +39,17 @@ export function Hero() {
             Local gutter specialists · Raleigh &amp; the Triangle
           </p>
 
-          <h1 className="mt-6 max-w-3xl text-5xl leading-[0.98] text-white sm:text-6xl lg:text-[4.75rem]">
+          <h1 className="mt-5 max-w-3xl text-[2.7rem] leading-[0.98] text-white sm:mt-6 sm:text-6xl xl:text-[4.75rem]">
             Seamless gutters.
             <span className="block text-blue-300">Built around your home.</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/80 sm:text-xl">
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-white/80 sm:mt-6 sm:text-xl">
             Installation, replacement and repair for Triangle homes — formed
             on site and backed by 10-year labor and materials warranties.
           </p>
 
-          <ul className="mt-7 grid max-w-xl gap-3 text-sm font-semibold text-white/90 sm:grid-cols-3">
+          <ul className="mt-6 grid max-w-xl gap-3 text-sm font-semibold text-white/90 sm:mt-7 sm:grid-cols-3">
             {["Free on-site estimates", "Licensed & insured", "English & Español"].map((item) => (
               <li key={item} className="flex items-center gap-2">
                 <CheckCircle2 className="size-4 shrink-0 text-blue-300" aria-hidden />
@@ -58,7 +58,7 @@ export function Hero() {
             ))}
           </ul>
 
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-7 flex flex-col gap-3 sm:mt-9 sm:flex-row sm:items-center">
             <ButtonLink href="#contact" variant="primary" className="px-7 py-3.5 shadow-xl shadow-navy-950/30">
               Get a Free Estimate
               <ArrowRight className="size-4" aria-hidden />

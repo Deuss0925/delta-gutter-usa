@@ -14,7 +14,7 @@ const projects = [
     src: finishedHome,
     title: "Finished gutter system",
     alt: "White gutters and downspouts installed on a yellow home",
-    className: "sm:col-span-2 sm:row-span-2 min-h-[34rem]",
+    className: "min-h-[28rem] sm:col-span-2 sm:row-span-2 sm:min-h-[34rem]",
     position: "object-[50%_22%]",
   },
   {

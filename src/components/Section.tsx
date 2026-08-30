@@ -21,7 +21,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`scroll-mt-20 py-20 sm:py-28 ${toneClass} ${className}`}
+      className={`scroll-mt-20 py-16 sm:py-24 lg:py-28 ${toneClass} ${className}`}
     >
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8">{children}</div>
     </section>
@@ -48,7 +48,7 @@ export function SectionHeading({
   const alignment =
     align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl";
   return (
-    <Reveal className={`mb-12 ${alignment}`}>
+    <Reveal className={`mb-10 sm:mb-12 ${alignment}`}>
       <Eyebrow>{eyebrow}</Eyebrow>
       <h2 className={`mt-4 text-3xl sm:text-4xl lg:text-[2.75rem] ${titleColor}`}>
         {title}
