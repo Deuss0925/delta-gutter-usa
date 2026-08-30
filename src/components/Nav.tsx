@@ -8,6 +8,7 @@ import { useReducedMotion } from "../lib/useReducedMotion";
 
 const links = [
   { label: "Services", href: "#services" },
+  { label: "Projects", href: "#projects" },
   { label: "Colors", href: "#colors" },
   { label: "Warranty", href: "#warranty" },
   { label: "Process", href: "#process" },
@@ -45,10 +46,10 @@ export function Nav() {
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-5 sm:px-8"
+        className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-5 sm:px-8"
       >
         <a href="#home" className="flex items-center" aria-label={`${business.brand} home`}>
-          <Logo size={30} />
+          <Logo size={38} />
         </a>
 
         <ul className="hidden items-center gap-8 lg:flex">

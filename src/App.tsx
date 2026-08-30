@@ -9,6 +9,9 @@ import { Warranty } from "./sections/Warranty";
 import { Process } from "./sections/Process";
 import { Faq } from "./sections/Faq";
 import { Contact } from "./sections/Contact";
+import { WhyDelta } from "./sections/WhyDelta";
+import { ProjectGallery } from "./sections/ProjectGallery";
+import { PhotoCta } from "./sections/PhotoCta";
 
 function App() {
   return (
@@ -19,9 +22,12 @@ function App() {
         <Hero />
         <TrustStrip />
         <Services />
-        <Configurator />
+        <WhyDelta />
+        <ProjectGallery />
         <Warranty />
+        <Configurator />
         <Process />
+        <PhotoCta />
         <Faq />
         <Contact />
       </main>

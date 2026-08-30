@@ -1,54 +1,30 @@
+import { BadgeCheck, CalendarCheck2, Languages, Ruler, ShieldCheck } from "lucide-react";
 import { Reveal } from "../components/Reveal";
-import {
-  BilingualSeal,
-  FacebookReviewsSeal,
-  FreeEstimateSeal,
-  GoogleReviewsSeal,
-  InsuredSeal,
-  LaborWarrantySeal,
-  MaterialsWarrantySeal,
-} from "../components/Seals";
 
-/**
- * Credential band.
- *
- * Sits on white on purpose: cutting the dark page makes the seals read as
- * certification marks rather than decoration, which is what earns the glance.
- * Every seal maps to a claim in the official document package — nothing here
- * is aspirational.
- */
-
-// Tailwind only sees class names written out in full, so the sizes are
-// literal strings rather than built from a flag.
-const round = "size-20 sm:size-24";
-const shield = "h-20 w-[6.25rem] sm:h-24 sm:w-[7.5rem]";
-const badge = "h-16 w-[5.4rem] sm:h-[4.5rem] sm:w-24";
-
-const seals = [
-  { Seal: GoogleReviewsSeal, label: "5-star rated on Google", size: badge },
-  { Seal: LaborWarrantySeal, label: "10-year labor warranty", size: round },
-  {
-    Seal: MaterialsWarrantySeal,
-    label: "10-year materials warranty",
-    size: round,
-  },
-  { Seal: InsuredSeal, label: "Licensed & fully insured", size: shield },
-  { Seal: FreeEstimateSeal, label: "Free on-site estimates", size: round },
-  { Seal: BilingualSeal, label: "English & Español", size: round },
-  { Seal: FacebookReviewsSeal, label: "5-star rated on Facebook", size: badge },
+const credentials = [
+  { Icon: Ruler, top: "Made on site", bottom: "Seamless gutter runs" },
+  { Icon: CalendarCheck2, top: "10-year", bottom: "Labor warranty" },
+  { Icon: BadgeCheck, top: "10-year", bottom: "Materials warranty" },
+  { Icon: ShieldCheck, top: "Licensed", bottom: "Fully insured" },
+  { Icon: Languages, top: "English", bottom: "Y Español" },
 ];
 
 export function TrustStrip() {
   return (
     <section
-      aria-label="Delta Gutter USA credentials"
-      className="border-y-[3px] border-blue-500 bg-white"
+      aria-label="Delta Gutter USA service commitments"
+      className="border-b border-slate-200 bg-white text-ink shadow-[0_12px_40px_rgba(4,20,31,0.08)]"
     >
-      <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-center gap-x-8 gap-y-6 px-5 py-8 sm:gap-x-12 sm:px-8">
-        {seals.map(({ Seal, label, size }, i) => (
-          <Reveal key={label} delay={i * 0.06}>
-            <Seal className={size} />
-            <span className="sr-only">{label}</span>
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-2 px-5 py-7 sm:px-8 md:grid-cols-5">
+        {credentials.map(({ Icon, top, bottom }, i) => (
+          <Reveal key={`${top}-${bottom}`} delay={i * 0.05} className="flex items-center gap-3 border-slate-200 px-3 py-3 md:border-r md:last:border-r-0">
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-blue-500/10 text-blue-600">
+              <Icon className="size-5" strokeWidth={2.2} aria-hidden />
+            </span>
+            <span>
+              <strong className="block text-sm font-extrabold leading-tight text-ink">{top}</strong>
+              <span className="mt-0.5 block text-xs leading-tight text-steel">{bottom}</span>
+            </span>
           </Reveal>
         ))}
       </div>

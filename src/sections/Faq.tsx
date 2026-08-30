@@ -24,7 +24,7 @@ function AccordionItem({
   const btnId = useId();
 
   return (
-    <div className="border-b border-ice/10">
+    <div className="border-b border-slate-200 last:border-b-0">
       <h3>
         <button
           id={btnId}
@@ -34,9 +34,9 @@ function AccordionItem({
           aria-controls={panelId}
           className="flex w-full cursor-pointer items-center justify-between gap-4 py-5 text-left"
         >
-          <span className="text-lg font-semibold text-ice">{q}</span>
+          <span className="text-lg font-semibold text-ink">{q}</span>
           <ChevronDown
-            className={`size-5 shrink-0 text-blue-400 transition-transform duration-300 ${
+            className={`size-5 shrink-0 text-blue-600 transition-transform duration-300 ${
               open ? "rotate-180" : ""
             }`}
             aria-hidden
@@ -55,7 +55,7 @@ function AccordionItem({
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <p className="pb-5 pr-8 text-[15px] leading-relaxed text-ice/70">
+            <p className="pb-5 pr-8 text-[15px] leading-relaxed text-steel">
               {a}
             </p>
           </motion.div>
@@ -69,16 +69,17 @@ export function Faq() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <Section id="faq">
+    <Section id="faq" tone="light">
       <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
         <SectionHeading
+          tone="light"
           eyebrow="Care & questions"
           title="Keep your gutters flowing."
           intro="Simple maintenance tips and straight answers — so your system keeps protecting your home for years."
         />
 
         <Reveal delay={0.1}>
-          <div className="rounded-2xl border border-ice/10 bg-navy-800/30 px-6">
+          <div className="rounded-2xl border border-slate-200 bg-white px-6 shadow-[0_16px_44px_rgba(4,20,31,0.08)]">
             {allFaqs.map((faq, i) => (
               <AccordionItem
                 key={faq.q}
