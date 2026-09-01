@@ -50,7 +50,10 @@ export function buildSummary(f: EstimateFields) {
  * should fall back to the mailto handoff rather than dropping the lead.
  */
 export async function submitEstimate(fields: EstimateFields): Promise<boolean> {
-  const payload: Record<string, string> = { "form-name": "estimate" };
+  const payload: Record<string, string> = {
+    "form-name": "estimate",
+    "bot-field": "",
+  };
   for (const [key, value] of Object.entries(fields)) {
     if (value) payload[key] = String(value);
   }
@@ -67,9 +70,9 @@ export async function submitEstimate(fields: EstimateFields): Promise<boolean> {
   }
 }
 
-/** Last-resort handoff so a failed POST still reaches the business. */
-export function mailtoFallback(fields: EstimateFields) {
-  window.location.href = business.links.mailto(
+/** Prepared email link shown only after the visitor explicitly chooses it. */
+export function estimateMailto(fields: EstimateFields) {
+  return business.links.mailto(
     `Free estimate request — ${fields.name}`,
     buildSummary(fields)
   );

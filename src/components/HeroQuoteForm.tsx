@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Check, Mail, Send } from "lucide-react";
+import { Check, Copy, Mail, RotateCcw, Send } from "lucide-react";
 import { business } from "../config/business";
 import {
-  mailtoFallback,
+  buildSummary,
+  estimateMailto,
   submitEstimate,
   type EstimateFields,
 } from "../lib/submitEstimate";
@@ -31,6 +32,7 @@ export function HeroQuoteForm() {
   const [email, setEmail] = useState("");
   const [service, setService] = useState<string>(quickServices[0]);
   const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
   const [status, setStatus] = useState<
     "idle" | "sending" | "sent" | "handoff"
   >("idle");
@@ -61,11 +63,27 @@ export function HeroQuoteForm() {
       setStatus("sent");
     } else {
       setStatus("handoff");
-      mailtoFallback(fields);
     }
   };
 
   if (status === "handoff") {
+    const fields: EstimateFields = {
+      name: name.trim(),
+      phone: phone.trim(),
+      email: email.trim(),
+      service,
+      source: "hero",
+    };
+
+    const copyDetails = async () => {
+      try {
+        await navigator.clipboard.writeText(buildSummary(fields));
+        setCopied(true);
+      } catch {
+        setCopied(false);
+      }
+    };
+
     return (
       <div
         role="status"
@@ -79,8 +97,7 @@ export function HeroQuoteForm() {
           One last step, {name.trim().split(" ")[0]}
         </p>
         <p className="mt-2 text-sm text-steel">
-          We've opened your email with the details filled in — just hit send.
-          Or call us at{" "}
+          We couldn't send this automatically. Choose an option below, or call us at{" "}
           <a
             href={business.phone.tel}
             className="font-semibold text-blue-300 underline underline-offset-2 hover:text-blue-200"
@@ -89,6 +106,39 @@ export function HeroQuoteForm() {
           </a>
           .
         </p>
+        <div className="mt-5 grid gap-2.5 sm:grid-cols-2">
+          <a
+            href={estimateMailto(fields)}
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-500 px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-blue-600"
+          >
+            <Mail className="size-4" aria-hidden />
+            Open prepared email
+          </a>
+          <button
+            type="button"
+            onClick={copyDetails}
+            className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-bold text-ink transition-colors hover:border-blue-400"
+          >
+            <Copy className="size-4" aria-hidden />
+            Copy request details
+          </button>
+        </div>
+        {copied && (
+          <p role="status" className="mt-3 text-xs font-semibold text-blue-600">
+            Request details copied. You can paste them into a text or email.
+          </p>
+        )}
+        <button
+          type="button"
+          onClick={() => {
+            setCopied(false);
+            setStatus("idle");
+          }}
+          className="mt-4 inline-flex cursor-pointer items-center gap-1.5 text-xs font-semibold text-steel underline underline-offset-4 hover:text-ink"
+        >
+          <RotateCcw className="size-3.5" aria-hidden />
+          Back to the form
+        </button>
       </div>
     );
   }

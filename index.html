@@ -87,7 +87,7 @@
       The React form in src/sections/Contact.tsx posts to it by name.
       Do not remove: without this, estimate requests are silently dropped.
     -->
-    <form name="estimate" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <form name="estimate" method="POST" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="hidden" name="form-name" value="estimate" />
       <input type="text" name="bot-field" />
       <input type="text" name="name" />

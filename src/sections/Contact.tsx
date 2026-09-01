@@ -16,11 +16,7 @@ import { Reveal } from "../components/Reveal";
 import { business } from "../config/business";
 import { services } from "../config/content";
 import { useReducedMotion } from "../lib/useReducedMotion";
-import {
-  mailtoFallback,
-  submitEstimate,
-  type EstimateFields,
-} from "../lib/submitEstimate";
+import { submitEstimate, type EstimateFields } from "../lib/submitEstimate";
 
 type FormState = {
   service: string;
@@ -177,7 +173,6 @@ export function Contact() {
       setStatus("sent");
     } else {
       setStatus("failed");
-      mailtoFallback(fields);
     }
   };
 
@@ -434,8 +429,8 @@ export function Contact() {
                         className="flex flex-wrap items-center gap-x-1.5 rounded-lg border border-blue-400/30 bg-blue-500/10 px-4 py-2.5 text-sm text-ice/90"
                       >
                         <Mail className="size-4 shrink-0 text-blue-400" aria-hidden />
-                        We've opened your email with the details — just hit send.
-                        Or call us at
+                        We couldn't send automatically. Use the Text or Email
+                        buttons below, or call us at
                         <a
                           href={business.phone.tel}
                           className="font-semibold text-blue-300 underline underline-offset-2 hover:text-blue-200"
